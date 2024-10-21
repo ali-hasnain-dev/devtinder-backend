@@ -3,7 +3,9 @@ const profileRouter = express.Router();
 const User = require('../models/user');
 const { validateProfileEditData } = require('../utils/validation')
 const userAuth = require('../middlewares/auth');
-profileRouter.post('/update', async (req, res) => {
+profileRouter.get('/', userAuth, async (req, res) => {
+    res.send(req.user)
+}).post('/update', async (req, res) => {
     const user = new User(req.body);
     try {
         await user.save();

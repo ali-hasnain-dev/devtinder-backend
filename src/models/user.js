@@ -69,7 +69,7 @@ userSchema.statics.findByCredentials = async function (email, password) {
 
 userSchema.statics.getJWTToken = function (user) {
 
-    return jwt.sign({ _id: user._id }, "devtinder@1234$");
+    return jwt.sign({ _id: user._id }, "devtinder@1234$", { expiresIn: '7d' });
 }
 
 module.exports = mongoose.model('User', userSchema);
