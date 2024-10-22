@@ -54,6 +54,11 @@ userRouter.get('/requests/received', userAuth, async (req, res) => {
         });
 
         const users = await User.find({
+            $and: [
+                { _id: { $nin: Array.from(existsUserId) }, },
+                { _id: { $ne: req.user._id } }
+            ]
+
         }).select('firstName lastName photoUrl age about gender skills').skip(skip).limit(limit);
 
         res.send(users);
