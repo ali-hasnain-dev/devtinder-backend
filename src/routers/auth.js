@@ -28,18 +28,16 @@ authRouter.post('/signup', async (req, res) => {
     }
 }).post('/login', async (req, res) => {
     try {
-        // const login = new User(req.body);
         const user = await User.findByCredentials(req.body.email, req.body.password);
-
         const token = await User.getJWTToken(user);
         res.cookie('token', token, { httpOnly: true });
-        res.send({ 'message': 'Login successfully', "data": user });
+        res.json({ 'message': 'Login successfully', "data": user });
     } catch (error) {
         res.status(400).send(error.message);
     }
 }).post('/logout', userAuth, async (req, res) => {
     res.cookie('token', null, { expires: new Date(Date.now()) });
-    res.send('Logged out successfully');
+    res.json({ 'message': 'Logged out successfully', "status": "200" });
 })
 
 module.exports = authRouter

@@ -24,7 +24,7 @@ profileRouter.get('/', userAuth, async (req, res) => {
         const loggedUser = req.user;
         const { firstName, lastName, age, gender, photoUrl, about, skills } = req.body;
         await User.updateOne({ _id: loggedUser._id }, { firstName, lastName, age, gender, photoUrl, about, skills });
-        res.send("Profile updated successfully");
+        res.json({ "msg": "Profile updated successfully", data: { firstName, lastName, age, gender, photoUrl, about, skills } });
     } catch (error) {
         res.status(400).send(error.message);
     }
